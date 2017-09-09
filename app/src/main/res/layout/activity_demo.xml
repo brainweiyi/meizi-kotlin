@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_tremble"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_corner_red_5"
+    android:layout_height="match_parent"
+    tools:context=".ui.DemoActivity">
+
+    <com.mmdteam.imagewatcher.MyButton
+        android:id="@+id/button_doubleTap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击"/>
+
+</RelativeLayout>
