@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.mmdteam.beautygirl.R
 import com.mmdteam.beautygirl.adapter.HomeAdapter
-import com.mmdteam.beautygirl.mvp.contract.HomeContract
+import com.mmdteam.beautygirl.mvp.contract.PicContract
 import com.mmdteam.beautygirl.mvp.model.bean.HomeBean
 import com.mmdteam.beautygirl.mvp.presenter.HomePresenter
 import com.mmdteam.beautygirl.ui.MainActivity
@@ -18,31 +18,29 @@ import com.mmdteam.beautygirl.utils.Utils
 import com.mmdteam.imagewatcher.ImageWatcher
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_pic.*
 
 /**
  * Created by brain on 2017/8/26.
  * 主界面
  */
-class HomeFragment : BaseFragment(),
-        HomeContract.View,
+class PicFragment : BaseFragment(),
+        PicContract.View,
         ImageWatcher.OnPictureLongPressListener,
         HomeAdapter.CallBack,
         SwipeRefreshLayout.OnRefreshListener {
 
 
-    private var mPresenter: HomePresenter? = null;
+    private var mPresenter: HomePresenter? = null
     var mList = ArrayList<HomeBean.PicBean>()
     var mAdapter: HomeAdapter? = null
 
     var mImageWatcher: ImageWatcher? = null
-    var mIsRefresh: Boolean = false
     var page: Int = 1
 
     override fun setData(bean: HomeBean) {
 
-        if (mIsRefresh) {
-            mIsRefresh = false
+        if (refreshLayout.isRefreshing) {
             page = 1
             refreshLayout.isRefreshing = false
             if (mList.size > 0) {
@@ -59,10 +57,7 @@ class HomeFragment : BaseFragment(),
 
 
     override fun onRefresh() {
-        if (!mIsRefresh) {
-            mIsRefresh = true
-            mPresenter?.start()
-        }
+        mPresenter?.start()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,12 +67,12 @@ class HomeFragment : BaseFragment(),
 
 
     override fun getLayoutResources(): Int {
-        return R.layout.fragment_home
+        return R.layout.fragment_pic
     }
 
 
-    fun findMax(lastPositions: IntArray): Int {
-        var max = lastPositions[0];
+    private fun findMax(lastPositions: IntArray): Int {
+        var max = lastPositions[0]
         lastPositions.forEach {
             if (it > max) {
                 max = it
@@ -89,8 +84,7 @@ class HomeFragment : BaseFragment(),
     var target: MyTarget? = null
     override fun initView() {
         homeRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        mPresenter = HomePresenter(context, this);
-        mPresenter?.start()
+        mPresenter = HomePresenter(context, this)
         refreshLayout.setOnRefreshListener(this)
         mAdapter = HomeAdapter(context, mList)
         mAdapter?.setCallBack(this)
@@ -104,7 +98,6 @@ class HomeFragment : BaseFragment(),
                 val lastPosition = findMax(last)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPosition == mList.size - 1) {
                     mPresenter!!.loadMore(page)
-//                    Toast.makeText(activity, "最底部", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -127,9 +120,13 @@ class HomeFragment : BaseFragment(),
                 .setOnPictureLongPressListener(this)
                 .setLoader(loader)
                 .create()
+
+        refreshLayout.isRefreshing = true
+        mPresenter?.start()
+
     }
 
-    var loader: ImageWatcher.Loader? = null
+    private var loader: ImageWatcher.Loader? = null
 
     override fun onThumbPictureClick(imageView: ImageView, url: String) {
         mImageWatcher?.show(imageView, url)
@@ -147,7 +144,7 @@ class HomeFragment : BaseFragment(),
 
     class MyTarget(lc: ImageWatcher.LoadCallback) : Target {
 
-        var lc: ImageWatcher.LoadCallback? = null
+        private var lc: ImageWatcher.LoadCallback? = null
 
         init {
             this.lc = lc

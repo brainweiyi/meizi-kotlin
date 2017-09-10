@@ -1,8 +1,8 @@
 package com.mmdteam.beautygirl.mvp.presenter
 
 import android.content.Context
-import com.mmdteam.beautygirl.mvp.contract.HomeContract
-import com.mmdteam.beautygirl.mvp.model.HomeModel
+import com.mmdteam.beautygirl.mvp.contract.PicContract
+import com.mmdteam.beautygirl.mvp.model.PicModel
 import com.mmdteam.beautygirl.mvp.model.bean.HomeBean
 import com.mmdteam.beautygirl.utils.applySchedulers
 import io.reactivex.Observable
@@ -10,11 +10,11 @@ import io.reactivex.Observable
 /**
  * Created by brain on 2017/8/26.
  */
-class HomePresenter(context: Context, view: HomeContract.View) : HomeContract.Presenter {
+class HomePresenter(context: Context, view: PicContract.View) : PicContract.Presenter {
     var mContext: Context? = null;
-    var mView: HomeContract.View? = null;
-    val mModel: HomeModel by lazy {
-        HomeModel()
+    var mView: PicContract.View? = null;
+    val mModel: PicModel by lazy {
+        PicModel()
     }
 
     init {

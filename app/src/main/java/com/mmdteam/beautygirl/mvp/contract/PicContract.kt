@@ -7,7 +7,7 @@ import com.mmdteam.beautygirl.mvp.model.bean.HomeBean
 /**
  * Created by brain on 2017/8/26.
  */
-interface HomeContract {
+interface PicContract {
 
     interface View : BaseView<Presenter> {
         fun setData(bean: HomeBean)

@@ -10,7 +10,7 @@ import io.reactivex.Observable
  * Created by brain on 2017/8/26.
  * 首页Model
  */
-class HomeModel {
+class PicModel {
 
     fun loadData(context: Context, page: Int): Observable<HomeBean>? {
         val retrofitClient = RetrofitClient.getInstance(context, ApiService.BASE_URL)

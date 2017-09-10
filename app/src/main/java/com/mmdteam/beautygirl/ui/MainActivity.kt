@@ -5,13 +5,12 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
 import com.mikepenz.iconics.IconicsDrawable
 import com.mmdteam.beautygirl.R
-import com.mmdteam.beautygirl.ui.fragment.HomeFragment
+import com.mmdteam.beautygirl.ui.fragment.PicFragment
 import com.mmdteam.beautygirl.ui.fragment.SettingFragment
 import com.mmdteam.beautygirl.utils.Utils
 import com.mmdteam.navmenu.NavMenuLayout
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, NavMenuLayout.OnItemReSelectedListener {
 
-    var homeFragment: HomeFragment? = null;
+    var picFragment: PicFragment? = null;
     var settingFragment: SettingFragment? = null;
 
 
@@ -77,8 +76,8 @@ class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, 
         if (savedInstanceState != null) {
             val mFragments: List<Fragment> = supportFragmentManager.fragments
             for (item in mFragments) {
-                if (item is HomeFragment) {
-                    homeFragment = item;
+                if (item is PicFragment) {
+                    picFragment = item;
                 }
                 if (item is SettingFragment) {
                     settingFragment = item;
@@ -86,15 +85,15 @@ class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, 
             }
 
         } else {
-            homeFragment = HomeFragment()
+            picFragment = PicFragment()
             settingFragment = SettingFragment()
             val fragmentTrans = supportFragmentManager.beginTransaction()
-            fragmentTrans.add(R.id.fl_content, homeFragment)
+            fragmentTrans.add(R.id.fl_content, picFragment)
             fragmentTrans.add(R.id.fl_content, settingFragment)
             fragmentTrans.commit();
         }
         supportFragmentManager.beginTransaction()
-                .show(homeFragment)
+                .show(picFragment)
                 .hide(settingFragment).commit();
     }
 
@@ -102,7 +101,7 @@ class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, 
         when (position) {
             0 -> {
                 supportFragmentManager.beginTransaction()
-                        .show(homeFragment)
+                        .show(picFragment)
                         .hide(settingFragment).commit();
                 tv_bar_title.setText("首页")
             }
@@ -110,15 +109,15 @@ class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, 
 
                 supportFragmentManager.beginTransaction()
                         .show(settingFragment)
-                        .hide(homeFragment).commit();
+                        .hide(picFragment).commit();
                 tv_bar_title.setText("设置")
             }
         }
     }
 
     override fun onBackPressed() {
-        if (!homeFragment!!.isHidden) {
-            if (!homeFragment!!.handleBackPressed()) {
+        if (!picFragment!!.isHidden) {
+            if (!picFragment!!.handleBackPressed()) {
                 super.onBackPressed()
             }
         } else {
