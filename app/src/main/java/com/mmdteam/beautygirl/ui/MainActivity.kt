@@ -1,5 +1,6 @@
 package com.mmdteam.beautygirl.ui
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -8,17 +9,24 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import com.mikepenz.iconics.IconicsDrawable
 import com.mmdteam.beautygirl.R
-import com.mmdteam.beautygirl.ui.fragment.PicFragment
+import com.mmdteam.beautygirl.ui.fragment.HomeFragment
 import com.mmdteam.beautygirl.ui.fragment.SettingFragment
 import com.mmdteam.beautygirl.utils.Utils
+import com.mmdteam.imagewatcher.ImageWatcher
 import com.mmdteam.navmenu.NavMenuLayout
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, NavMenuLayout.OnItemReSelectedListener {
+class MainActivity : AppCompatActivity(),
+        NavMenuLayout.OnItemSelectedListener,
+        NavMenuLayout.OnItemReSelectedListener,
+        ImageWatcher.OnPictureLongPressListener {
 
-    var picFragment: PicFragment? = null;
+    var homeFragment: HomeFragment? = null;
     var settingFragment: SettingFragment? = null;
 
 
@@ -27,7 +35,6 @@ class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, 
     }
 
     override fun onItemSelected(position: Int) {
-        tv_bar_title.setText("点击了 " + position)
         switchFragment(position)
     }
 
@@ -35,6 +42,10 @@ class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, 
     var iconTitle = arrayOf("首页", "设置");
 
     var isTranslucentStatus = false
+
+    var target: MyTarget? = null
+    private var loader: ImageWatcher.Loader? = null
+    var mImageWatcher: ImageWatcher? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,14 +81,36 @@ class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, 
         initFragment(savedInstanceState)
 
         Utils.fitsSystemWindows(isTranslucentStatus, v_fit)
+
+
+
+        loader = ImageWatcher.Loader { context, url, lc ->
+            if (target == null) {
+                target = MyTarget(lc)
+            }
+            Picasso.with(context).load(url).into(target)
+        }
+
+        mImageWatcher = ImageWatcher.Helper.with(this)
+                .setTranslucentStatus(if (isTranslucentStatus) Utils.calcStatusBarHeight(this) else 0)
+                //.setErrorImageRes(R.mipmap.error_picture) // 配置error图标 如果不介意使用lib自带的图标，并不一定要调用这个API
+                .setOnPictureLongPressListener(this)
+                .setLoader(loader)
+                .create()
+
+
+    }
+
+    override fun onPictureLongPress(imageView: ImageView?, url: String?) {
+
     }
 
     private fun initFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             val mFragments: List<Fragment> = supportFragmentManager.fragments
             for (item in mFragments) {
-                if (item is PicFragment) {
-                    picFragment = item;
+                if (item is HomeFragment) {
+                    homeFragment = item;
                 }
                 if (item is SettingFragment) {
                     settingFragment = item;
@@ -85,15 +118,15 @@ class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, 
             }
 
         } else {
-            picFragment = PicFragment()
+            homeFragment = HomeFragment()
             settingFragment = SettingFragment()
             val fragmentTrans = supportFragmentManager.beginTransaction()
-            fragmentTrans.add(R.id.fl_content, picFragment)
+            fragmentTrans.add(R.id.fl_content, homeFragment)
             fragmentTrans.add(R.id.fl_content, settingFragment)
             fragmentTrans.commit();
         }
         supportFragmentManager.beginTransaction()
-                .show(picFragment)
+                .show(homeFragment)
                 .hide(settingFragment).commit();
     }
 
@@ -101,7 +134,7 @@ class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, 
         when (position) {
             0 -> {
                 supportFragmentManager.beginTransaction()
-                        .show(picFragment)
+                        .show(homeFragment)
                         .hide(settingFragment).commit();
                 tv_bar_title.setText("首页")
             }
@@ -109,19 +142,40 @@ class MainActivity : AppCompatActivity(), NavMenuLayout.OnItemSelectedListener, 
 
                 supportFragmentManager.beginTransaction()
                         .show(settingFragment)
-                        .hide(picFragment).commit();
+                        .hide(homeFragment).commit();
                 tv_bar_title.setText("设置")
             }
         }
     }
 
     override fun onBackPressed() {
-        if (!picFragment!!.isHidden) {
-            if (!picFragment!!.handleBackPressed()) {
-                super.onBackPressed()
-            }
-        } else {
+
+        if (!mImageWatcher!!.handleBackPressed()) {
             super.onBackPressed()
         }
+
+    }
+
+
+    class MyTarget(lc: ImageWatcher.LoadCallback) : Target {
+
+        private var lc: ImageWatcher.LoadCallback? = null
+
+        init {
+            this.lc = lc
+        }
+
+        override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+            lc?.onLoadStarted(placeHolderDrawable)
+        }
+
+        override fun onBitmapFailed(errorDrawable: Drawable?) {
+            lc?.onLoadFailed(errorDrawable)
+        }
+
+        override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+            lc?.onResourceReady(bitmap)
+        }
+
     }
 }

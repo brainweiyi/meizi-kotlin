@@ -16,6 +16,6 @@ interface ApiService {
     }
 
     //获取首页第一页数据
-    @GET("category/All/page/{page}")
-    fun getHomeData(@Path("page") page: Int): Observable<HomeBean>
+    @GET("category/{category}/page/{page}")
+    fun getHomeData(@Path("category") category: String, @Path("page") page: Int): Observable<HomeBean>
 }

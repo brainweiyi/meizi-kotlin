@@ -9,10 +9,12 @@ import io.reactivex.Observable
 
 /**
  * Created by brain on 2017/8/26.
+ * Pic Presenter
  */
-class PicPresenter(context: Context, view: PicContract.View) : PicContract.Presenter {
+class PicPresenter(context: Context, view: PicContract.View, category: String) : PicContract.Presenter {
     var mContext: Context? = null;
     var mView: PicContract.View? = null;
+    var mCategory: String? = null
     val mModel: PicModel by lazy {
         PicModel()
     }
@@ -20,6 +22,7 @@ class PicPresenter(context: Context, view: PicContract.View) : PicContract.Prese
     init {
         mContext = context;
         mView = view;
+        mCategory = category
     }
 
     override fun start() {
@@ -32,7 +35,7 @@ class PicPresenter(context: Context, view: PicContract.View) : PicContract.Prese
 
     override fun requestData(page: Int) {
         val observable: Observable<HomeBean>? = mContext?.let {
-            mModel.loadData(it, page)
+            mModel.loadData(it, mCategory!!, page)
         }
         observable?.applySchedulers()?.subscribe { homeBean: HomeBean ->
             mView?.setData(homeBean)

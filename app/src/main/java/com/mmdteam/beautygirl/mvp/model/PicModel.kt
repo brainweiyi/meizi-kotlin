@@ -12,9 +12,9 @@ import io.reactivex.Observable
  */
 class PicModel {
 
-    fun loadData(context: Context, page: Int): Observable<HomeBean>? {
+    fun loadData(context: Context, category: String, page: Int): Observable<HomeBean>? {
         val retrofitClient = RetrofitClient.getInstance(context, ApiService.BASE_URL)
         val apiService = retrofitClient.create(ApiService::class.java)
-        return apiService?.getHomeData(page);
+        return apiService?.getHomeData(category, page);
     }
 }
