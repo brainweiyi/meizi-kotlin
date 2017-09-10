@@ -17,24 +17,17 @@ class SettingFragment : BaseFragment() {
     var cacheFileObserver: CacheFileObserver? = null
 
     override fun initView() {
-        cache.setText(FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir) +
-                "\n" +
-                activity.cacheDir.absolutePath +
-                "\n" +
-                activity.externalCacheDir.absolutePath +
-                "\n" +
-                activity.filesDir.absolutePath)
+
+        cacheSize.setText(FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir))
+
+
 
         cacheFileObserver = CacheFileObserver(activity.cacheDir.absolutePath)
         cacheFileObserver!!.startWatching()
 
-        cache.setOnClickListener {
+        cleanCache.setOnClickListener {
             FileUtils.cleanApplicationData(activity)
-            cache.setText(FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir) +
-                    "\n" +
-                    activity.cacheDir.absolutePath +
-                    "\n" +
-                    activity.externalCacheDir.absolutePath)
+            cacheSize.setText(FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir))
         }
     }
 
@@ -49,13 +42,7 @@ class SettingFragment : BaseFragment() {
 
         override fun onEvent(event: Int, path: String?) {
             if (event == FileObserver.ALL_EVENTS) {
-                cache.setText(FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir) +
-                        "\n" +
-                        activity.cacheDir.absolutePath +
-                        "\n" +
-                        activity.externalCacheDir.absolutePath +
-                        "\n" +
-                        activity.filesDir.absolutePath)
+                cacheSize.setText(FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir))
             }
         }
 
