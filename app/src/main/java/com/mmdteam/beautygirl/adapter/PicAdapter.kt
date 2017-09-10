@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso
  * Created by brain on 2017/8/28.
  * Home RecycleView Adapter
  */
-class HomeAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : RecyclerView.Adapter<PicAdapter.HomeViewHolder>() {
 
     var context: Context? = null
     var list: ArrayList<HomeBean.PicBean>? = null

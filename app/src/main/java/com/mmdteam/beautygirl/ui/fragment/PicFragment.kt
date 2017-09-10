@@ -9,7 +9,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.widget.ImageView
 import android.widget.Toast
 import com.mmdteam.beautygirl.R
-import com.mmdteam.beautygirl.adapter.HomeAdapter
+import com.mmdteam.beautygirl.adapter.PicAdapter
 import com.mmdteam.beautygirl.mvp.contract.PicContract
 import com.mmdteam.beautygirl.mvp.model.bean.HomeBean
 import com.mmdteam.beautygirl.mvp.presenter.PicPresenter
@@ -27,13 +27,13 @@ import kotlinx.android.synthetic.main.fragment_pic.*
 class PicFragment : BaseFragment(),
         PicContract.View,
         ImageWatcher.OnPictureLongPressListener,
-        HomeAdapter.CallBack,
+        PicAdapter.CallBack,
         SwipeRefreshLayout.OnRefreshListener {
 
 
     private var mPresenter: PicPresenter? = null
     var mList = ArrayList<HomeBean.PicBean>()
-    var mAdapter: HomeAdapter? = null
+    var mAdapter: PicAdapter? = null
 
     var mImageWatcher: ImageWatcher? = null
     var page: Int = 1
@@ -86,7 +86,7 @@ class PicFragment : BaseFragment(),
         homeRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         mPresenter = PicPresenter(context, this)
         refreshLayout.setOnRefreshListener(this)
-        mAdapter = HomeAdapter(context, mList)
+        mAdapter = PicAdapter(context, mList)
         mAdapter?.setCallBack(this)
         homeRecyclerView.adapter = mAdapter
         homeRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
