@@ -12,11 +12,11 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : BaseFragment() {
 
-    var fragments: ArrayList<Fragment>? = null
-    var titles = listOf<String>("全部", "大胸", "翘臀", "黑丝", "美腿", "清新", "杂烩").toMutableList()
-    var categories = arrayOf("All", "DaXiong", "QiaoTun", "HeiSi", "MeiTui", "QingXin", "ZaHui")
+    private var fragments: ArrayList<Fragment>? = null
+    private var titles = listOf<String>("全部", "大胸", "翘臀", "黑丝", "美腿", "清新", "杂烩").toMutableList()
+    private var categories = arrayOf("All", "DaXiong", "QiaoTun", "HeiSi", "MeiTui", "QingXin", "ZaHui")
 
-    var adapter: HomePagerAdapter? = null
+    private var adapter: HomePagerAdapter? = null
 
     override fun getLayoutResources(): Int {
         return R.layout.fragment_home
@@ -29,19 +29,19 @@ class HomeFragment : BaseFragment() {
 
     private fun initFragment() {
         fragments = ArrayList()
-        titles.forEachIndexed { index, s ->
+
+        categories.forEach {
             val fragment = PicFragment()
             val bundle = Bundle()
-            bundle.putString("category", categories[index])
+            bundle.putString("category", it)
             fragment.arguments = bundle
-            fragments!!.add(index, fragment)
+            fragments!!.add(fragment)
         }
+
         adapter = HomePagerAdapter(fragmentManager, fragments!!, titles)
         homeViewPager.adapter = adapter
 
     }
-
-
 
 
 }
