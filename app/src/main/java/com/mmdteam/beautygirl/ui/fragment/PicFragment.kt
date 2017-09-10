@@ -12,7 +12,7 @@ import com.mmdteam.beautygirl.R
 import com.mmdteam.beautygirl.adapter.HomeAdapter
 import com.mmdteam.beautygirl.mvp.contract.PicContract
 import com.mmdteam.beautygirl.mvp.model.bean.HomeBean
-import com.mmdteam.beautygirl.mvp.presenter.HomePresenter
+import com.mmdteam.beautygirl.mvp.presenter.PicPresenter
 import com.mmdteam.beautygirl.ui.MainActivity
 import com.mmdteam.beautygirl.utils.Utils
 import com.mmdteam.imagewatcher.ImageWatcher
@@ -31,7 +31,7 @@ class PicFragment : BaseFragment(),
         SwipeRefreshLayout.OnRefreshListener {
 
 
-    private var mPresenter: HomePresenter? = null
+    private var mPresenter: PicPresenter? = null
     var mList = ArrayList<HomeBean.PicBean>()
     var mAdapter: HomeAdapter? = null
 
@@ -84,7 +84,7 @@ class PicFragment : BaseFragment(),
     var target: MyTarget? = null
     override fun initView() {
         homeRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        mPresenter = HomePresenter(context, this)
+        mPresenter = PicPresenter(context, this)
         refreshLayout.setOnRefreshListener(this)
         mAdapter = HomeAdapter(context, mList)
         mAdapter?.setCallBack(this)

@@ -10,7 +10,7 @@ import io.reactivex.Observable
 /**
  * Created by brain on 2017/8/26.
  */
-class HomePresenter(context: Context, view: PicContract.View) : PicContract.Presenter {
+class PicPresenter(context: Context, view: PicContract.View) : PicContract.Presenter {
     var mContext: Context? = null;
     var mView: PicContract.View? = null;
     val mModel: PicModel by lazy {
