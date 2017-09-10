@@ -1,6 +1,7 @@
 package com.mmdteam.beautygirl.ui.fragment
 
 import android.os.FileObserver
+import android.support.v7.app.AlertDialog
 import com.mmdteam.beautygirl.R
 import com.mmdteam.beautygirl.utils.FileUtils
 import kotlinx.android.synthetic.main.fragment_setting.*
@@ -26,8 +27,22 @@ class SettingFragment : BaseFragment() {
         cacheFileObserver!!.startWatching()
 
         cleanCache.setOnClickListener {
-            FileUtils.cleanApplicationData(activity)
-            cacheSize.setText(FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir))
+            AlertDialog.Builder(activity)
+                    .setTitle("清除缓存")
+                    .setMessage("清除图片缓存")
+                    .setPositiveButton("确定", { dialogInterface, i ->
+                        FileUtils.cleanApplicationData(activity)
+                        cacheSize.setText(FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir))
+                    }).create().show()
+        }
+        versionName.setText(getVersionName())
+        checkUpdate.setOnClickListener {
+            AlertDialog.Builder(activity)
+                    .setTitle("检查更新")
+                    .setMessage("已经是最新版")
+                    .setPositiveButton("确定", { dialogInterface, i ->
+                        dialogInterface.dismiss()
+                    }).create().show()
         }
     }
 
@@ -36,6 +51,11 @@ class SettingFragment : BaseFragment() {
         if (cacheFileObserver != null) {
             cacheFileObserver!!.stopWatching()
         }
+    }
+
+
+    fun getVersionName(): String {
+        return activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
     }
 
     inner class CacheFileObserver(path: String?) : FileObserver(path) {
