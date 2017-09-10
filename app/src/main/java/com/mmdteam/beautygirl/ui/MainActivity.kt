@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity(),
         NavMenuLayout.OnItemReSelectedListener,
         ImageWatcher.OnPictureLongPressListener {
 
-    var homeFragment: HomeFragment? = null;
-    var settingFragment: SettingFragment? = null;
+    private var homeFragment: HomeFragment? = null
+    private var settingFragment: SettingFragment? = null
 
 
     override fun onItemReSelected(position: Int) {
@@ -39,11 +39,11 @@ class MainActivity : AppCompatActivity(),
     }
 
 
-    var iconTitle = arrayOf("首页", "设置");
+    private var iconTitle = arrayOf("首页", "设置")
 
-    var isTranslucentStatus = false
+    private var isTranslucentStatus = false
 
-    var target: MyTarget? = null
+    private var target: MyTarget? = null
     private var loader: ImageWatcher.Loader? = null
     var mImageWatcher: ImageWatcher? = null
 
@@ -74,9 +74,9 @@ class MainActivity : AppCompatActivity(),
                 .setTextColorSelected(Color.BLUE)
                 .setMarginTop(4)
                 .setTextSize(10)
-                .setSelected(0);
+                .setSelected(0)
         nav_layout.setOnItemSelectedListener(this)
-        nav_layout.setOnItemReSelectedListener(this);
+        nav_layout.setOnItemReSelectedListener(this)
 
         initFragment(savedInstanceState)
 
@@ -110,10 +110,10 @@ class MainActivity : AppCompatActivity(),
             val mFragments: List<Fragment> = supportFragmentManager.fragments
             for (item in mFragments) {
                 if (item is HomeFragment) {
-                    homeFragment = item;
+                    homeFragment = item
                 }
                 if (item is SettingFragment) {
-                    settingFragment = item;
+                    settingFragment = item
                 }
             }
 
@@ -123,11 +123,11 @@ class MainActivity : AppCompatActivity(),
             val fragmentTrans = supportFragmentManager.beginTransaction()
             fragmentTrans.add(R.id.fl_content, homeFragment)
             fragmentTrans.add(R.id.fl_content, settingFragment)
-            fragmentTrans.commit();
+            fragmentTrans.commit()
         }
         supportFragmentManager.beginTransaction()
                 .show(homeFragment)
-                .hide(settingFragment).commit();
+                .hide(settingFragment).commit()
     }
 
     private fun switchFragment(position: Int) {
@@ -135,15 +135,15 @@ class MainActivity : AppCompatActivity(),
             0 -> {
                 supportFragmentManager.beginTransaction()
                         .show(homeFragment)
-                        .hide(settingFragment).commit();
-                tv_bar_title.setText("首页")
+                        .hide(settingFragment).commit()
+                tv_bar_title.text = "首页"
             }
             1 -> {
 
                 supportFragmentManager.beginTransaction()
                         .show(settingFragment)
-                        .hide(homeFragment).commit();
-                tv_bar_title.setText("设置")
+                        .hide(homeFragment).commit()
+                tv_bar_title.text = "设置"
             }
         }
     }
