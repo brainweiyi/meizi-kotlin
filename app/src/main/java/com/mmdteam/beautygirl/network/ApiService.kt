@@ -7,12 +7,13 @@ import retrofit2.http.Path
 
 /**
  * Created by brain on 2017/8/25.
+ * api service
  */
 interface ApiService {
 
     companion object {
         val BASE_URL: String
-            get() = "https://meizi.leanapp.cn/";
+            get() = "https://meizi.leanapp.cn/"
     }
 
     //获取首页第一页数据
