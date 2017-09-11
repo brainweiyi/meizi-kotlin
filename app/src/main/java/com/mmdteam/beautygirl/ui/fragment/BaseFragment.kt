@@ -12,9 +12,9 @@ import android.view.ViewGroup
  */
 abstract class BaseFragment : Fragment() {
 
-    var isFirst: Boolean = false;
-    var rootView: View? = null;
-    var isFragmentVisible: Boolean = false;
+    private var isFirst: Boolean = false
+    private var rootView: View? = null
+    private var isFragmentVisible: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,42 +22,42 @@ abstract class BaseFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (rootView == null) {
-            rootView = inflater?.inflate(this.getLayoutResources(), container, false);
+            rootView = inflater?.inflate(this.getLayoutResources(), container, false)
         }
-        return rootView;
+        return rootView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        this.initView();
+        this.initView()
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
-            isFragmentVisible = true;
+            isFragmentVisible = true
         }
 
         if (rootView == null) {
-            return;
+            return
         }
         //可见，并且没有加载过
         if (!isFirst && isFragmentVisible) {
-            onFragmentVisibleChange(true);
-            return;
+            onFragmentVisibleChange(true)
+            return
         }
         //由可见——>不可见 已经加载过
         if (isFragmentVisible) {
-            onFragmentVisibleChange(false);
-            isFragmentVisible = false;
+            onFragmentVisibleChange(false)
+            isFragmentVisible = false
         }
     }
 
     open protected fun onFragmentVisibleChange(b: Boolean) {}
 
-    abstract fun getLayoutResources(): Int;
+    abstract fun getLayoutResources(): Int
 
-    abstract fun initView();
+    abstract fun initView()
 
 
 }

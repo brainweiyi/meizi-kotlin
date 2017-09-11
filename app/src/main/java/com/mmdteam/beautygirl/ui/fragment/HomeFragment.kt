@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import com.mmdteam.beautygirl.R
 import com.mmdteam.beautygirl.adapter.HomePagerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 
 /**
  * Created by brain on 2017/9/10.
@@ -23,6 +24,7 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun initView() {
+        tv_bar_title.text = "首页"
         initFragment()
         tabs.setupWithViewPager(homeViewPager, true)
     }

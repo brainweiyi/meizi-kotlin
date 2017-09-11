@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog
 import com.mmdteam.beautygirl.R
 import com.mmdteam.beautygirl.utils.FileUtils
 import kotlinx.android.synthetic.main.fragment_setting.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 
 /**
  * Created by brain on 2017/8/26.
@@ -18,6 +19,8 @@ class SettingFragment : BaseFragment() {
     var cacheFileObserver: CacheFileObserver? = null
 
     override fun initView() {
+
+        tv_bar_title.text = "设置"
 
         cacheSize.setText(FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir))
 

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(),
 
 
     override fun onItemReSelected(position: Int) {
-        tv_bar_title.setText("又一次点击了" + position)
+        //tv_bar_title.setText("又一次点击了" + position)
     }
 
     override fun onItemSelected(position: Int) {
@@ -136,14 +136,14 @@ class MainActivity : AppCompatActivity(),
                 supportFragmentManager.beginTransaction()
                         .show(homeFragment)
                         .hide(settingFragment).commit()
-                tv_bar_title.text = "首页"
+//                tv_bar_title.text = "首页"
             }
             1 -> {
 
                 supportFragmentManager.beginTransaction()
                         .show(settingFragment)
                         .hide(homeFragment).commit()
-                tv_bar_title.text = "设置"
+//                tv_bar_title.text = "设置"
             }
         }
     }
