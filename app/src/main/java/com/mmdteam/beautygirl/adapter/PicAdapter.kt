@@ -18,8 +18,8 @@ import com.squareup.picasso.Picasso
 class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : RecyclerView.Adapter<PicAdapter.HomeViewHolder>() {
 
     var context: Context? = null
-    var list: ArrayList<HomeBean.PicBean>? = null
-    var inflater: LayoutInflater? = null
+    private var list: ArrayList<HomeBean.PicBean>? = null
+    private var inflater: LayoutInflater? = null
     var mCallback: CallBack? = null
 
     fun setCallBack(callBack: CallBack) {
@@ -27,9 +27,9 @@ class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : Recycler
     }
 
     init {
-        this.context = context;
-        this.list = list;
-        this.inflater = LayoutInflater.from(context);
+        this.context = context
+        this.list = list
+        this.inflater = LayoutInflater.from(context)
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder?, position: Int) {
@@ -51,20 +51,20 @@ class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : Recycler
 
     inner class HomeViewHolder(itemView: View?, context: Context) : RecyclerView.ViewHolder(itemView) {
 
-        var itemText: TextView? = null
-        var itemImage: ImageView? = null
+        private var itemText: TextView? = null
+        private var itemImage: ImageView? = null
         var context: Context? = null
 
         init {
-            itemText = itemView?.findViewById<TextView>(R.id.itemText)
-            itemImage = itemView?.findViewById<ImageView>(R.id.itemImage)
+            itemText = itemView?.findViewById(R.id.itemText)
+            itemImage = itemView?.findViewById(R.id.itemImage)
             this.context = context
         }
 
 
         fun update(list: MutableList<HomeBean.PicBean>, position: Int) {
             val bean = list[position]
-            itemText?.setText(bean.title)
+            itemText?.text = bean.title
             Picasso.with(this.context).load(bean.thumb_url).into(itemImage)
             itemView?.setOnClickListener {
                 mCallback?.onThumbPictureClick(itemImage!!, bean.image_url!!)
@@ -74,6 +74,6 @@ class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : Recycler
     }
 
     interface CallBack {
-        fun onThumbPictureClick(imageView: ImageView, url:String)
+        fun onThumbPictureClick(imageView: ImageView, url: String)
     }
 }
