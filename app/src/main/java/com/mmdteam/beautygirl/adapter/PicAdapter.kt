@@ -66,7 +66,7 @@ class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : Recycler
             val bean = list[position]
             itemText?.setText(bean.title)
             Picasso.with(this.context).load(bean.thumb_url).into(itemImage)
-            itemView?.setOnClickListener { view: View? ->
+            itemView?.setOnClickListener {
                 mCallback?.onThumbPictureClick(itemImage!!, bean.image_url!!)
             }
         }

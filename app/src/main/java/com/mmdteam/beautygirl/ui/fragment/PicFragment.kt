@@ -40,7 +40,7 @@ class PicFragment : BaseFragment(),
         }
         page++
 
-        bean.results.forEach {
+        bean.results?.forEach {
             mList.add(it)
         }
         mAdapter?.notifyDataSetChanged()

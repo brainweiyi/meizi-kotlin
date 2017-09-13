@@ -10,7 +10,7 @@ import com.mmdteam.beautygirl.mvp.model.bean.HomeBean
  */
 interface PicContract {
 
-    interface View : BaseView<Presenter> {
+    interface View : BaseView {
         fun setData(bean: HomeBean)
     }
 
