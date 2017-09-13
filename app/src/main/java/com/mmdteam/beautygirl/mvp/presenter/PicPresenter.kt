@@ -15,7 +15,7 @@ class PicPresenter(context: Context, view: PicContract.View, category: String) :
     var mContext: Context? = null;
     var mView: PicContract.View? = null;
     var mCategory: String? = null
-    val mModel: PicModel by lazy {
+    private val mModel: PicModel by lazy {
         PicModel()
     }
 

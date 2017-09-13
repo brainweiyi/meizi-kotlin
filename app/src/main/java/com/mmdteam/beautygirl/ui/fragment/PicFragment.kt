@@ -24,10 +24,10 @@ class PicFragment : BaseFragment(),
 
     private var mPresenter: PicPresenter? = null
     var mList = ArrayList<HomeBean.PicBean>()
-    var mAdapter: PicAdapter? = null
+    private var mAdapter: PicAdapter? = null
 
     var page: Int = 1
-    lateinit var category: String
+    private lateinit var category: String
 
     override fun setData(bean: HomeBean) {
 
@@ -69,7 +69,7 @@ class PicFragment : BaseFragment(),
                 max = it
             }
         }
-        return max;
+        return max
     }
 
     override fun initView() {

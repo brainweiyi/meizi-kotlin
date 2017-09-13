@@ -15,6 +15,6 @@ interface PicContract {
     }
 
     interface Presenter : BasePresenter {
-        fun requestData(page: Int);
+        fun requestData(page: Int)
     }
 }

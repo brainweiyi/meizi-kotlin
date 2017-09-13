@@ -6,6 +6,7 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by brain on 2017/8/27.
+ * applySchedulers
  */
 fun <T> Observable<T>.applySchedulers(): Observable<T> {
     return subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
