@@ -5,10 +5,11 @@ import android.os.Parcelable
 
 /**
  * Created by brain on 2017/8/26.
+ * 首页数据
  */
 data class HomeBean(var category: String?,
-                    var page: Int,
-                    var results: List<PicBean>) {
+                    var page: Int?,
+                    var results: List<PicBean>?) {
 
     data class PicBean(var category: String?,
                        var group_url: String?,

@@ -6,6 +6,7 @@ import com.mmdteam.beautygirl.mvp.model.bean.HomeBean
 
 /**
  * Created by brain on 2017/8/26.
+ * Contract
  */
 interface PicContract {
 
