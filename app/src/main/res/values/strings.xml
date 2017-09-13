@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BeautyGirl</string>
+    <string name="app_name">BG</string>
     <string name="clean_cache">清除缓存</string>
     <string name="check_update">检查更新</string>
 </resources>
