@@ -1,7 +1,9 @@
 package com.mmdteam.beautygirl
 
 import android.app.Application
+import android.widget.Toast
 import com.jakewharton.picasso.OkHttp3Downloader
+import com.mmdteam.beautygirl.utils.ForegroundCallbacks
 import com.squareup.picasso.Picasso
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -11,11 +13,21 @@ import java.io.File
  * Created by brain on 2017/8/25.
  * Application
  */
-class App : Application() {
+class App : Application(), ForegroundCallbacks.Listener {
+    override fun onBecameForeground() {
+        Toast.makeText(this, "程序切换到前台", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onBecameBackground() {
+        Toast.makeText(this, "程序切换到后台", Toast.LENGTH_SHORT).show()
+    }
 
 
     override fun onCreate() {
         super.onCreate()
+
+        ForegroundCallbacks.init(this)
+        ForegroundCallbacks.get().addListener(this)
         initPicasso()
     }
 
