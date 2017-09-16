@@ -75,13 +75,13 @@ public class NumberAdapter extends BaseAdapter {
                 textView.setText("9");
                 break;
             case 9:
-                textView.setText("");
+                textView.setVisibility(View.GONE);
                 break;
             case 10:
                 textView.setText("0");
                 break;
             case 11:
-                textView.setText("");
+                textView.setVisibility(View.GONE);
                 break;
         }
         return view;
