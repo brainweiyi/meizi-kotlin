@@ -5,17 +5,15 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 /**
  * Created by brain on 2017/9/16.
  * 密码数字键盘
  */
 
-public class NumberKeyboard extends ViewGroup {
+public class NumberKeyboard extends LinearLayout {
     public NumberKeyboard(Context context) {
         super(context);
     }
@@ -42,8 +40,8 @@ public class NumberKeyboard extends ViewGroup {
     }
 
     private void init() {
-        View rootView = LayoutInflater.from(getContext()).inflate(R.layout.layout_keyboard, this, false);
-        GridView gridView = rootView.findViewById(R.id.keyboard_grid_view);
+        inflate(getContext(), R.layout.layout_keyboard, this);
+        GridView gridView = findViewById(R.id.keyboard_grid_view);
         gridView.setAdapter(new NumberAdapter());
     }
 
