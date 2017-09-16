@@ -1,6 +1,6 @@
 package com.mmdteam.numberlocker;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +12,14 @@ import android.widget.TextView;
  */
 
 public class NumberAdapter extends BaseAdapter {
+
+
+    private Context context;
+
+    public NumberAdapter(Context context) {
+        this.context = context;
+    }
+
     @Override
     public int getCount() {
         return 12;
@@ -30,8 +38,8 @@ public class NumberAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        TextView textView = new TextView(viewGroup.getContext());
-        textView.setTextColor(Color.BLACK);
+        TextView textView = new TextView(context);
+
         switch (i) {
             case 0:
                 textView.setText("1");

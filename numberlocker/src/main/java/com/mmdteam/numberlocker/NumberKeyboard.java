@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 public class NumberKeyboard extends LinearLayout {
     public NumberKeyboard(Context context) {
         super(context);
+        init();
     }
 
     public NumberKeyboard(Context context, @Nullable AttributeSet attrs) {
@@ -42,7 +43,7 @@ public class NumberKeyboard extends LinearLayout {
     private void init() {
         inflate(getContext(), R.layout.layout_keyboard, this);
         GridView gridView = findViewById(R.id.keyboard_grid_view);
-        gridView.setAdapter(new NumberAdapter());
+        gridView.setAdapter(new NumberAdapter(getContext()));
     }
 
     @Override
