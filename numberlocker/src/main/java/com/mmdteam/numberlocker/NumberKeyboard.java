@@ -35,19 +35,10 @@ public class NumberKeyboard extends LinearLayout {
         init();
     }
 
-    @Override
-    protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
-
-    }
-
     private void init() {
         inflate(getContext(), R.layout.layout_keyboard, this);
         GridView gridView = findViewById(R.id.keyboard_grid_view);
         gridView.setAdapter(new NumberAdapter(getContext()));
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
 }

@@ -1,6 +1,7 @@
 package com.mmdteam.numberlocker;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -38,7 +39,12 @@ public class NumberAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        TextView textView = new TextView(context);
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.layout_item, viewGroup, false);
+        }
+
+        TextView textView = view.findViewById(R.id.text);
+
 
         switch (i) {
             case 0:
@@ -78,6 +84,6 @@ public class NumberAdapter extends BaseAdapter {
                 textView.setText("");
                 break;
         }
-        return textView;
+        return view;
     }
 }
