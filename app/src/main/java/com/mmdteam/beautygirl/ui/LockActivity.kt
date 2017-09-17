@@ -3,7 +3,6 @@ package com.mmdteam.beautygirl.ui
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.mmdteam.beautygirl.R
-import com.mmdteam.numberlocker.NumberAdapter
 import kotlinx.android.synthetic.main.activity_number_locker.*
 
 /**
