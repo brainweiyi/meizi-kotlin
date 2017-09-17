@@ -17,6 +17,12 @@ import android.widget.TextView;
  */
 
 public class NumberKeyboard extends LinearLayout implements AdapterView.OnItemClickListener {
+
+
+    interface OnPasswordCheckedListener {
+        void onPasswordChecked(boolean isPass);
+    }
+
     public NumberKeyboard(Context context) {
         super(context);
         init();
@@ -25,6 +31,7 @@ public class NumberKeyboard extends LinearLayout implements AdapterView.OnItemCl
     private TextView passwordOne, passwordTwo, passwordThree, passwordFour;
     private int currentNum = 0;
     private int pOne, pTwo, pThree, pFour;
+    private OnPasswordCheckedListener listener;
 
     public NumberKeyboard(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -53,6 +60,10 @@ public class NumberKeyboard extends LinearLayout implements AdapterView.OnItemCl
         gridView.setOnItemClickListener(this);
     }
 
+
+    public void setListener(OnPasswordCheckedListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -126,5 +137,6 @@ public class NumberKeyboard extends LinearLayout implements AdapterView.OnItemCl
     }
 
     private void checkPassword(int... password) {
+        listener.onPasswordChecked(true);
     }
 }

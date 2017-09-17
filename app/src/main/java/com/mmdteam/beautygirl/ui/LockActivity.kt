@@ -15,5 +15,10 @@ class LockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_number_locker)
+        passwordKey.setListener {
+            if (it) {
+                finish()
+            }
+        }
     }
 }
