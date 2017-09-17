@@ -2,7 +2,6 @@ package com.mmdteam.beautygirl
 
 import android.app.Application
 import android.content.Intent
-import android.widget.Toast
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.mmdteam.beautygirl.ui.LockActivity
 import com.mmdteam.beautygirl.utils.ForegroundCallbacks
@@ -20,11 +19,9 @@ class App : Application(), ForegroundCallbacks.Listener {
         val intent = Intent(applicationContext, LockActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-        Toast.makeText(this, "程序切换到前台", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBecameBackground() {
-        Toast.makeText(this, "程序切换到后台", Toast.LENGTH_SHORT).show()
     }
 
 
