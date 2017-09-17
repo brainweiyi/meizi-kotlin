@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * Created by brain on 2017/9/16.
@@ -18,6 +19,8 @@ public class NumberKeyboard extends LinearLayout {
         super(context);
         init();
     }
+
+    private TextView passwordOne;
 
     public NumberKeyboard(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -39,6 +42,8 @@ public class NumberKeyboard extends LinearLayout {
         inflate(getContext(), R.layout.layout_keyboard, this);
         GridView gridView = findViewById(R.id.keyboard_grid_view);
         gridView.setAdapter(new NumberAdapter(getContext()));
+        passwordOne = findViewById(R.id.password_one);
+        passwordOne.setSelected(true);
     }
 
 }
