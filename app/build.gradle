@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+//添加 com.sensorsdata.analytics.android 插件
+apply plugin: 'com.sensorsdata.analytics.android'
+
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
@@ -34,6 +37,11 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -80,4 +88,6 @@ dependencies {
     //图形解锁
     implementation 'me.zhanghai.android.patternlock:library:2.1.2'
     implementation project(':numberlocker')
+    //sensors data
+    implementation(name: 'SensorsAnalyticsSDK-release', ext: 'aar')
 }

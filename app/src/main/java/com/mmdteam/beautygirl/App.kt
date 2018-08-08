@@ -5,10 +5,12 @@ import android.content.Intent
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.mmdteam.beautygirl.ui.LockActivity
 import com.mmdteam.beautygirl.utils.ForegroundCallbacks
+import com.sensorsdata.analytics.android.sdk.SensorsDataAPI
 import com.squareup.picasso.Picasso
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
+import java.util.*
 
 /**
  * Created by brain on 2017/8/25.
@@ -31,6 +33,28 @@ class App : Application(), ForegroundCallbacks.Listener {
         ForegroundCallbacks.init(this)
         ForegroundCallbacks.get().addListener(this)
 //        initPicasso()
+        initSensorsData()
+    }
+
+    fun initSensorsData() {
+        val DATA_URL = "http://sdk-test.cloud.sensorsdata.cn:8006/sa?project=weiyi&token=95c73ae661f85aa0"
+        val debugMode: SensorsDataAPI.DebugMode = if (BuildConfig.DEBUG) SensorsDataAPI.DebugMode.DEBUG_AND_TRACK else SensorsDataAPI.DebugMode.DEBUG_OFF
+        SensorsDataAPI.sharedInstance(this, DATA_URL, debugMode)
+        try {
+            val eventTypeList = ArrayList<SensorsDataAPI.AutoTrackEventType>()
+            // $AppStart
+            eventTypeList.add(SensorsDataAPI.AutoTrackEventType.APP_START)
+            // $AppEnd
+            eventTypeList.add(SensorsDataAPI.AutoTrackEventType.APP_END)
+            // $AppViewScreen
+            eventTypeList.add(SensorsDataAPI.AutoTrackEventType.APP_VIEW_SCREEN)
+            // $AppClick
+            eventTypeList.add(SensorsDataAPI.AutoTrackEventType.APP_CLICK)
+            SensorsDataAPI.sharedInstance().enableAutoTrack(eventTypeList)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     /**
