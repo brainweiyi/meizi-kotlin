@@ -22,25 +22,25 @@ class SettingFragment : BaseFragment() {
 
         tv_bar_title.text = "设置"
 
-        cacheSize.text = FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir)
+        cacheSize.text = FileUtils.getCacheSize(this.activity!!.cacheDir, activity!!.externalCacheDir)
 
 
 
-        cacheFileObserver = CacheFileObserver(activity.cacheDir.absolutePath)
+        cacheFileObserver = CacheFileObserver(this.activity!!.cacheDir.absolutePath)
         cacheFileObserver!!.startWatching()
 
         cleanCache.setOnClickListener {
-            AlertDialog.Builder(activity)
+            AlertDialog.Builder(this.activity!!)
                     .setTitle("清除缓存")
                     .setMessage("清除图片缓存")
                     .setPositiveButton("确定") { _, _ ->
-                        FileUtils.cleanApplicationData(activity)
-                        cacheSize.text = FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir)
+                        FileUtils.cleanApplicationData(this.activity!!)
+                        cacheSize.text = FileUtils.getCacheSize(this.activity!!.cacheDir, activity!!.externalCacheDir)
                     }.create().show()
         }
         versionName.text = getVersionName()
         checkUpdate.setOnClickListener {
-            AlertDialog.Builder(activity)
+            AlertDialog.Builder(this.activity!!)
                     .setTitle("检查更新")
                     .setMessage("已经是最新版")
                     .setPositiveButton("确定", { dialogInterface, _ ->
@@ -58,14 +58,14 @@ class SettingFragment : BaseFragment() {
 
 
     private fun getVersionName(): String {
-        return activity.packageManager.getPackageInfo(activity.packageName, 0).versionName
+        return activity!!.packageManager.getPackageInfo(this.activity!!.packageName, 0).versionName
     }
 
     inner class CacheFileObserver(path: String?) : FileObserver(path) {
 
         override fun onEvent(event: Int, path: String?) {
             if (event == FileObserver.ALL_EVENTS) {
-                cacheSize.text = FileUtils.getCacheSize(activity.cacheDir, activity.externalCacheDir)
+                cacheSize.text = FileUtils.getCacheSize(activity!!.cacheDir, activity!!.externalCacheDir)
             }
         }
 

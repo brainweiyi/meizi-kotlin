@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso
  */
 class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : RecyclerView.Adapter<PicAdapter.HomeViewHolder>() {
 
+
     var context: Context? = null
     private var list: ArrayList<HomeBean.PicBean>? = null
     private var inflater: LayoutInflater? = null
@@ -32,15 +33,12 @@ class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : Recycler
         this.inflater = LayoutInflater.from(context)
     }
 
-    override fun onBindViewHolder(holder: HomeViewHolder?, position: Int) {
-        list?.let { holder?.update(it, position) }
+    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+        list?.let { holder.update(it, position) }
     }
 
-    override fun onViewRecycled(holder: HomeViewHolder?) {
-        super.onViewRecycled(holder)
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): HomeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         return HomeViewHolder(inflater?.inflate(R.layout.item_home, parent, false), context!!)
     }
 
@@ -65,7 +63,7 @@ class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : Recycler
         fun update(list: MutableList<HomeBean.PicBean>, position: Int) {
             val bean = list[position]
             itemText?.text = bean.title
-            Picasso.with(this.context).load(bean.thumb_url).into(itemImage)
+            Picasso.get().load(bean.thumb_url).into(itemImage)
             itemView?.setOnClickListener {
                 mCallback?.onThumbPictureClick(itemImage!!, bean.image_url!!)
             }

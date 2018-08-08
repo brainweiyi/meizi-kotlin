@@ -40,7 +40,7 @@ class HomeFragment : BaseFragment() {
             fragments!!.add(fragment)
         }
 
-        adapter = HomePagerAdapter(fragmentManager, fragments!!, titles)
+        adapter = HomePagerAdapter(this.fragmentManager!!, fragments!!, titles)
         homeViewPager.adapter = adapter
 
     }

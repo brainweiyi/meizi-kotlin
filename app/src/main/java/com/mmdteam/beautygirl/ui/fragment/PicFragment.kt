@@ -53,7 +53,7 @@ class PicFragment : BaseFragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        category = arguments["category"] as String
+        category = arguments!!["category"] as String
     }
 
 
@@ -74,9 +74,9 @@ class PicFragment : BaseFragment(),
 
     override fun initView() {
         homeRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        mPresenter = PicPresenter(context, this, category)
+        mPresenter = PicPresenter(this.context!!, this, category)
         refreshLayout.setOnRefreshListener(this)
-        mAdapter = PicAdapter(context, mList)
+        mAdapter = PicAdapter(this.context!!, mList)
         mAdapter?.setCallBack(this)
         homeRecyclerView.adapter = mAdapter
         homeRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {

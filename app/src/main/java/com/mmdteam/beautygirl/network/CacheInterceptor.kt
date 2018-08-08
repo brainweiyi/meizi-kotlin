@@ -7,6 +7,7 @@ import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.Response
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 /**
  * Created by brain on 2017/8/25.
  * 网络缓存

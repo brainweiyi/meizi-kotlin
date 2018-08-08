@@ -20,6 +20,7 @@ import com.mmdteam.navmenu.NavMenuLayout
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity(),
         NavMenuLayout.OnItemSelectedListener,
@@ -84,11 +85,11 @@ class MainActivity : AppCompatActivity(),
 
 
 
-        loader = ImageWatcher.Loader { context, url, lc ->
+        loader = ImageWatcher.Loader { _, url, lc ->
             if (target == null) {
                 target = MyTarget(lc)
             }
-            Picasso.with(context).load(url).into(target)
+            Picasso.get().load(url).into(target!!)
         }
 
         mImageWatcher = ImageWatcher.Helper.with(this)
@@ -169,7 +170,7 @@ class MainActivity : AppCompatActivity(),
             lc?.onLoadStarted(placeHolderDrawable)
         }
 
-        override fun onBitmapFailed(errorDrawable: Drawable?) {
+        override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
             lc?.onLoadFailed(errorDrawable)
         }
 

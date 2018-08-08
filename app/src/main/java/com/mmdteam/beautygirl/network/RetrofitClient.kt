@@ -21,7 +21,7 @@ class RetrofitClient private constructor(context: Context, baseUrl: String) {
     private var cache: Cache? = null
     private var okHttpClient: OkHttpClient? = null
     private var retrofit: Retrofit? = null
-    private var DEFAULT_TIMEOUT: Long = 20
+    private var TIMEOUT: Long = 30
 
     init {
         //缓存地址
@@ -41,8 +41,8 @@ class RetrofitClient private constructor(context: Context, baseUrl: String) {
                 .cache(cache)
                 .addInterceptor(CacheInterceptor(context))
                 .addNetworkInterceptor(CacheInterceptor(context))
-                .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
                 .build()
         //retrofit创建
         retrofit = Retrofit.Builder()
