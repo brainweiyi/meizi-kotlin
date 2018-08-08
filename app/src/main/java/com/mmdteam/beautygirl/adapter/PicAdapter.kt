@@ -39,7 +39,7 @@ class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : Recycler
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        return HomeViewHolder(inflater?.inflate(R.layout.item_home, parent, false), context!!)
+        return HomeViewHolder(inflater?.inflate(R.layout.item_home, parent, false)!!, context!!)
     }
 
     override fun getItemCount(): Int {
@@ -47,25 +47,25 @@ class PicAdapter(context: Context, list: ArrayList<HomeBean.PicBean>) : Recycler
     }
 
 
-    inner class HomeViewHolder(itemView: View?, context: Context) : RecyclerView.ViewHolder(itemView) {
+    inner class HomeViewHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
 
-        private var itemText: TextView? = null
-        private var itemImage: ImageView? = null
-        var context: Context? = null
+        private var itemText: TextView
+        private var itemImage: ImageView
+        var context: Context
 
         init {
-            itemText = itemView?.findViewById(R.id.itemText)
-            itemImage = itemView?.findViewById(R.id.itemImage)
+            itemText = itemView.findViewById(R.id.itemText)
+            itemImage = itemView.findViewById(R.id.itemImage)
             this.context = context
         }
 
 
         fun update(list: MutableList<HomeBean.PicBean>, position: Int) {
             val bean = list[position]
-            itemText?.text = bean.title
+            itemText.text = bean.title
             Picasso.get().load(bean.thumb_url).into(itemImage)
-            itemView?.setOnClickListener {
-                mCallback?.onThumbPictureClick(itemImage!!, bean.image_url!!)
+            itemView.setOnClickListener {
+                mCallback!!.onThumbPictureClick(itemImage, bean.image_url!!)
             }
         }
 

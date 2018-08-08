@@ -30,7 +30,7 @@ class App : Application(), ForegroundCallbacks.Listener {
 
         ForegroundCallbacks.init(this)
         ForegroundCallbacks.get().addListener(this)
-        initPicasso()
+//        initPicasso()
     }
 
     /**

@@ -38,6 +38,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
@@ -72,8 +73,8 @@ dependencies {
     //this adds all ui view widgets (IconicsButton, IconicsImageView, ...)
     implementation 'com.mikepenz:iconics-views:3.0.4@aar'
     implementation 'com.mikepenz:ionicons-typeface:2.0.1.4@aar'
-    implementation 'com.github.brainweiyi:navmenu:1.0.1'
-    implementation 'com.github.brainweiyi:watcher:v1.0'
+    implementation 'com.github.brainweiyi:navmenu:1.0.2'
+    implementation 'com.github.brainweiyi:watcher:1.0.1.1'
     //滑动隐藏导航栏
     implementation 'com.github.githubwing:ByeBurger:1.2.3'
     //图形解锁

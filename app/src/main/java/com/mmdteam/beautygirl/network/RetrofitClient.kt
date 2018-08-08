@@ -17,21 +17,16 @@ import java.util.concurrent.TimeUnit
  * retrofit客户端
  */
 class RetrofitClient private constructor(context: Context, baseUrl: String) {
-    private var httpCacheDirectory: File? = null
-    private var cache: Cache? = null
-    private var okHttpClient: OkHttpClient? = null
+    private var httpCacheDirectory: File = File(context.cacheDir, "app_cache")
+    private lateinit var cache: Cache
+    private var okHttpClient: OkHttpClient
     private var retrofit: Retrofit? = null
-    private var TIMEOUT: Long = 30
+    private var TIME_OUT: Long = 30
 
     init {
         //缓存地址
-        if (httpCacheDirectory == null) {
-            httpCacheDirectory = File(context.cacheDir, "app_cache")
-        }
         try {
-            if (cache == null) {
-                cache = Cache(httpCacheDirectory, 10 * 1024 * 1024)
-            }
+            cache = Cache(httpCacheDirectory, 10 * 1024 * 1024)
         } catch (e: Exception) {
             Log.e("OKHttp", "Could not create http cache", e)
         }
@@ -41,8 +36,8 @@ class RetrofitClient private constructor(context: Context, baseUrl: String) {
                 .cache(cache)
                 .addInterceptor(CacheInterceptor(context))
                 .addNetworkInterceptor(CacheInterceptor(context))
-                .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+                .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .build()
         //retrofit创建
         retrofit = Retrofit.Builder()
